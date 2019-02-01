@@ -4,8 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductsTableComponent } from './products-table/products-table.component';
-import { MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule, 
+import { MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule,
   MatDialogModule, MatButtonModule, MatTooltipModule } from '@angular/material';
+import { ProductService } from './services/product.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule,
     ProductsTableComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatTableModule,
@@ -23,7 +26,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule,
     MatButtonModule,
     MatTooltipModule
   ],
-  providers: [],
+  providers: [ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

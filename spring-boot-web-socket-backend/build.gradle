@@ -33,6 +33,10 @@ dependencies {
 	//swagger
 	implementation('io.springfox:springfox-swagger2:2.9.2')
 	implementation('io.springfox:springfox-swagger-ui:2.9.2')
+	
+	// modelmapper
+	implementation 'org.modelmapper.extensions:modelmapper-spring:2.3.0'
+
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
