@@ -33,8 +33,8 @@ export class ProductService {
     return this.http.post<Product>(API_URL, product, httpOptions);
   }
 
-  updateProduct(product: Product): Observable<any> {
-    return this.http.put(API_URL + product.id.toString(), product, httpOptions);
+  updateProduct(id: number, product: Product): Observable<any> {
+    return this.http.put(API_URL + id.toString(), product, httpOptions);
   }
 
   deleteProduct(id: number): Observable<Product> {
