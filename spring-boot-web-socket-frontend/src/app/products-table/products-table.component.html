@@ -3,6 +3,14 @@
   <mat-toolbar>
     <span>Products</span>
     <span class="fill-remaining-space"></span>
+    <mat-slide-toggle
+      class="example-margin"
+      [(ngModel)]="checked"
+      color="primary"
+      (change)="changed()">
+      Auto Generation Change
+    </mat-slide-toggle>
+    <span class="fill-remaining-space"></span>
     <mat-form-field floatLabel="never">
       <input matInput type="search" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       <mat-icon matSuffix style="font-size: 120%">search</mat-icon>

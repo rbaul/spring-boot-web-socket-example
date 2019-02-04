@@ -33,3 +33,7 @@ server:
 logging:
   level:
     ROOT: info
+
+generator:
+  auto-generate: false
+  fixedDelay-in-milliseconds: 2000

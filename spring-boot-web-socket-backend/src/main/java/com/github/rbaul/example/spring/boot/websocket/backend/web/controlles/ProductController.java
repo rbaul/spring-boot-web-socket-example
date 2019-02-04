@@ -2,6 +2,7 @@ package com.github.rbaul.example.spring.boot.websocket.backend.web.controlles;
 
 import com.github.rbaul.example.spring.boot.websocket.backend.config.ApiImplicitPageable;
 import com.github.rbaul.example.spring.boot.websocket.backend.services.ProductService;
+import com.github.rbaul.example.spring.boot.websocket.backend.services.impl.ProductMessageServiceImpl;
 import com.github.rbaul.example.spring.boot.websocket.backend.web.ValidationGroups;
 import com.github.rbaul.example.spring.boot.websocket.backend.web.dtos.ProductDto;
 import com.github.rbaul.example.spring.boot.websocket.backend.web.dtos.errors.ErrorDto;
@@ -26,6 +27,8 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+
+    private final ProductMessageServiceImpl productMessageService;
 
     @ApiOperation(value = "Get Product")
     @ApiResponses({@ApiResponse(code = 200, message = "Retrieved Product"),
@@ -54,7 +57,9 @@ public class ProductController {
     public ProductDto create(
             @ApiParam(value = "Product object that needs to be create", name = "ProductDto", required = true)
             @Validated(ValidationGroups.Create.class) @RequestBody ProductDto productDto) {
-        return productService.create(productDto);
+        ProductDto productDtoResponse = productService.create(productDto);
+        productMessageService.productsUpdated();
+        return productDtoResponse;
     }
 
     @ApiOperation(value = "Update product")
@@ -66,7 +71,10 @@ public class ProductController {
     public ProductDto update(@PathVariable long productId,
                                    @ApiParam(value = "Product object that needs to be edit", name = "ProductDto", required = true)
                                    @Validated(ValidationGroups.Create.class) @RequestBody ProductDto productDto) {
-        return productService.update(productId, productDto);
+        ProductDto productDtoResponse = productService.update(productId, productDto);
+        productMessageService.productsUpdated();
+        productMessageService.productUpdated(productId);
+        return productDtoResponse;
     }
 
     @ApiOperation(value = "Delete Product")
@@ -77,6 +85,7 @@ public class ProductController {
     @DeleteMapping("{productId}")
     public void delete(@PathVariable long productId) {
         productService.delete(productId);
+        productMessageService.productsUpdated();
     }
 
     @ApiOperation(value = "Fetch all products with paging")

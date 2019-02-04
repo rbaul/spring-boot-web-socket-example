@@ -6,11 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductsTableComponent } from './products-table/products-table.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatToolbarModule,
   MatDialogModule, MatButtonModule, MatTooltipModule, MatInputModule, MatOptionModule,
-   MatSelectModule, MatIconModule } from '@angular/material';
+   MatSelectModule, MatIconModule, MatSlideToggleModule } from '@angular/material';
 import { ProductService } from './services/product.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -33,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatSlideToggleModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent],
