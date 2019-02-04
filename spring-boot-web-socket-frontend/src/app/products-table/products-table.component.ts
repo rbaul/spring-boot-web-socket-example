@@ -18,7 +18,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy, AfterViewInit 
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<Product> = new MatTableDataSource();
 
-  private serverUrl = 'http://localhost:4200/product-stomp';
+  private serverUrl = '/product-stomp';
 
   private stompClient;
 
