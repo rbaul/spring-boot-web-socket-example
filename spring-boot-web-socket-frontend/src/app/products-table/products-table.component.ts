@@ -7,6 +7,7 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { AutoGenerationService } from '../services/auto-generation.service';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-products-table',
@@ -25,7 +26,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy, AfterViewInit 
   checked = false;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'description', 'price', 'state'];
+  displayedColumns = ['id', 'name', 'description', 'price', 'state', 'actions'];
 
   constructor(
     private dialog: MatDialog,
@@ -100,6 +101,21 @@ export class ProductsTableComponent implements OnInit, OnDestroy, AfterViewInit 
     this.disconnect();
   }
 
+  openConfirmDialog(): MatDialogRef<ConfirmationDialogComponent> {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      message: 'Are you sure to delete this product?',
+      okName: 'Delete',
+      title: 'Deletion'
+    };
+
+    return this.dialog.open(ConfirmationDialogComponent, dialogConfig);
+  }
+
   openProductDialog(productData: Product): MatDialogRef<ProductDialogComponent> {
     const dialogConfig = new MatDialogConfig();
 
@@ -115,8 +131,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy, AfterViewInit 
     this.openProductDialog(new Product()).afterClosed().subscribe(
       data => {
         if (data !== undefined) {
-          this.productApiService.addProduct(data)
-          .subscribe(response => console.log(response));
+          this.productApiService.addProduct(data).subscribe();
         }
       }
     );
@@ -132,4 +147,16 @@ export class ProductsTableComponent implements OnInit, OnDestroy, AfterViewInit 
       }
     );
   }
+
+  deleteProduct(product: Product) {
+    this.openConfirmDialog().afterClosed().subscribe(
+      data => {
+        if (data !== undefined) {
+          this.productApiService.deleteProduct(product.id)
+        .subscribe(response => console.log(response));
+        }
+      }
+    );
+  }
+
 }

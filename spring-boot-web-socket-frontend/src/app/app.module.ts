@@ -11,12 +11,14 @@ import { ProductService } from './services/product.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductsTableComponent,
-    ProductDialogComponent
+    ProductDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     HttpClientModule,
@@ -39,6 +41,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   ],
   providers: [ProductService],
   bootstrap: [AppComponent],
-  entryComponents: [ProductDialogComponent]
+  entryComponents: [ProductDialogComponent, ConfirmationDialogComponent]
 })
 export class AppModule { }
